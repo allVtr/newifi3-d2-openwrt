@@ -20,7 +20,7 @@ jobs:
 
     steps:
       - name: Clone Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Build Environment Initialization
         run: |
@@ -41,7 +41,7 @@ jobs:
           chmod +x build.sh && ./build.sh
 
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v4
         with:
           tag_name: v${{ env.FILE_DATE }}
           files: |

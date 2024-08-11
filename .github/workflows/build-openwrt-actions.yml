@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - name: Clone Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Init Compilation Dependencies
         env:
           DEBIAN_FRONTEND: noninteractive
@@ -46,7 +46,12 @@ jobs:
         run: |
           /bin/bash ${GITHUB_WORKSPACE}/before_build.sh
           cp -fpR ${GITHUB_WORKSPACE}/. /home/runner/immortalwrt/
-
+          
+      - name: SSH远程连接服务器配置固件
+        run: |
+          uses: actions/checkout@v4
+          if: env.SSH_ACTIONS == 'true' || contains(github.event.action, 'ssh')
+               
       - name: Start Build
         run: |
           cd /home/runner/immortalwrt
